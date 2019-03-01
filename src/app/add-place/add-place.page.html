@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add place</ion-title>
+    <ion-buttons slot="secondary">
+        <ion-button (click)="savePlace()">
+            <ion-icon name="save"></ion-icon>
+        </ion-button>
+        <ion-button (click)="confirmDeletion()">
+            <ion-icon name="trash" color="danger"></ion-icon>
+        </ion-button> 
+    </ion-buttons>
+      
+          
+   
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- header with location -->
+  <h1>{{currentPosition.lat}}, {{currentPosition.lon}}</h1>
+
+
+  <!-- Place name -->
+  <ion-item>
+    <ion-label position="floating">Place name</ion-label>
+    <ion-input clearInput placeholder="Name" [(ngModel)]="place.name"></ion-input>
+  </ion-item>
+
+  <!-- Other properties -->
+  <ion-segment scrollable [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="description" checked> 
+        <ion-label>Description</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="picture">
+        <ion-label>Picture</ion-label>
+      </ion-segment-button>
+  </ion-segment>
+
+  <ion-item [hidden]='selectedSegment != "description"'>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea placeholder="Name" [(ngModel)]="place.description"></ion-textarea>
+  </ion-item>
+
+  <ion-item [hidden]='selectedSegment != "picture"'>
+      <ion-button color="primary" (click)="takePhoto()">Take a picture</ion-button>
+      
+  </ion-item>
+
+  <!-- Priority -->
+  <ion-item>
+      <ion-label>In danger</ion-label>
+      <ion-toggle color="danger" [(ngModel)]="place.danger"></ion-toggle>
+  </ion-item>
+
+</ion-content>

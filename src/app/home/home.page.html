@@ -1,12 +1,55 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      GeoPatrimoine Companion App
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+
+  <!-- existing places -->
+  <ion-segment scrollable [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="local" checked> 
+      <ion-label>Local</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="remote">
+      <ion-label>Remote</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="nearMe">
+      <ion-label>Near me</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-item [hidden]='selectedSegment != "local"'>
+    <ion-list>
+      <ion-item *ngFor="let localPlace of localPlaces">
+          <h4>{{localPlace.name}}</h4>
+          <p *ngIf="localPlace.description">{{localPlace.description}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-item>
+
+  <ion-item [hidden]='selectedSegment != "remote"'>
+    <ion-list>
+      <ion-item>
+          <h4></h4>
+          <p></p>
+      </ion-item>
+    </ion-list>
+  </ion-item>
+
+  <ion-item [hidden]='selectedSegment != "nearMe"'>
+    <ion-label><i>Coming soon :)</i>></ion-label>
+  </ion-item>
+
+  <!-- add place -->
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+          <ion-fab-button href="/add-place">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+  </ion-fab>
 </ion-content>

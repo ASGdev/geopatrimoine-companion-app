@@ -1,5 +1,7 @@
 {
   "name": "geopatrimoine-mobile",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
